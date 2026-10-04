@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#122137">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Site Report">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<title>Track Machines · Daily Site Report</title>
+<style>
+:root{--ink:#142238;--navy:#122137;--muted:#607087;--line:#dce3ec;--paper:#fff;--bg:#eef2f7;--orange:#f28b36;--blue:#2b67ba;--red:#a32c39;--green:#177750;--radius:16px;--shadow:0 4px 18px #16294608;color-scheme:light;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:16px}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);padding-bottom:env(safe-area-inset-bottom)}button,input,select,textarea{font:inherit}button,a,input,select,textarea{-webkit-tap-highlight-color:transparent}button,a.button{touch-action:manipulation}button{cursor:pointer}button:disabled{opacity:.6;cursor:wait}a{color:var(--blue)}[hidden]{display:none!important}
+.masthead{background:var(--navy);color:white;border-top:5px solid var(--orange);padding:22px max(18px,env(safe-area-inset-left)) 20px;position:relative;overflow:hidden}.masthead:after{content:"";position:absolute;right:-34px;top:30px;width:150px;height:180px;border-left:9px solid #ffffff0c;border-right:9px solid #ffffff0c;transform:rotate(28deg);pointer-events:none}.masthead-inner{max-width:760px;margin:auto;position:relative;z-index:1}.topline{display:flex;justify-content:space-between;align-items:center;gap:12px}.eyebrow{font-size:11px;font-weight:800;letter-spacing:2px;color:#ffc894}.masthead h1{font-size:29px;line-height:1.12;letter-spacing:-.8px;margin:14px 0 8px;font-weight:850}.masthead p{font-size:12px;color:#becddd;margin:0;letter-spacing:.4px}.menu-btn{border:1px solid #627087;border-radius:9px;padding:8px 12px;background:transparent;color:#fff;font-size:13px;min-height:36px}.report-chip{font-size:13px;color:#d8e5f4;margin-top:16px;overflow-wrap:anywhere}
+.statusbar{max-width:796px;margin:auto;padding:11px 18px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:11px;color:var(--muted)}#save-state{color:var(--green);font-weight:650}.bad,#save-state.bad{color:var(--red)}.sticky-nav{position:sticky;top:0;z-index:8;background:#eef2f7f2;backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.nav-inner{max-width:796px;display:flex;align-items:center;gap:6px;margin:auto;padding:10px 14px}.step{border:0;background:transparent;color:var(--muted);font-size:12px;font-weight:750;padding:10px 6px;flex:1;border-radius:11px;min-height:48px;white-space:nowrap}.step b{display:inline-grid;place-items:center;width:23px;height:23px;border-radius:8px;background:#dce4ef;margin-right:5px;font-size:11px}.step.active{background:white;color:var(--ink);box-shadow:var(--shadow)}.step.active b{background:var(--orange);color:var(--navy)}.nav-export{background:var(--navy);color:white;border:0;border-radius:10px;min-height:44px;padding:9px 12px;font-size:12px;font-weight:750}
+main{max-width:796px;margin:auto;padding:12px 16px 32px}.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:21px;margin-bottom:16px;box-shadow:var(--shadow);overflow:hidden}.card.compact{padding:4px 20px}.section-head{margin-bottom:22px}.step-label{font-size:10px;font-weight:850;letter-spacing:1.8px;color:var(--blue)}h2{font-size:22px;letter-spacing:-.6px;margin:6px 0 12px;line-height:1.2}h3{font-size:16px;margin:14px 0 12px}.section-head p,p.muted,.muted,.setup-copy{font-size:13px;line-height:1.6;color:var(--muted);margin:0 0 12px}.section-head p{margin-bottom:0}.section-row{display:flex;justify-content:space-between;align-items:center;gap:12px}.section-row h2{margin-bottom:5px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px 12px}.field{min-width:0}.field.full{grid-column:1/-1}.field label{display:block;font-size:12px;font-weight:720;color:#394b64;margin-bottom:7px;line-height:1.4}.req{color:#c05514}input,select,textarea{border:1px solid #bdcbdc;border-radius:10px;background:#fbfcfe;color:var(--ink);width:100%;max-width:100%;min-width:0;padding:12px 11px;min-height:49px;outline:none;font-size:16px;line-height:1.35}select{padding-right:25px}input[type=time],input[type=date]{display:block;min-height:49px;-webkit-appearance:none;appearance:none}input[type=date]::-webkit-date-and-time-value,input[type=time]::-webkit-date-and-time-value{min-height:22px;text-align:left}textarea{resize:vertical;min-height:104px}input[data-custom]{margin-top:8px}input:focus,textarea:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #2b67ba1a;background:#fff}.field small{font-size:11px;color:var(--muted);line-height:1.5;display:block;margin-top:6px}.subhead{margin:25px 0 16px;padding-top:20px;border-top:1px solid var(--line)}.note{padding:13px 14px;border-left:3px solid var(--orange);background:#fff6eb;border-radius:0 9px 9px 0;font-size:12px;line-height:1.6;color:#624728;margin:14px 0 4px}
+button.primary,.button.primary{background:var(--navy);border:1px solid var(--navy);color:white;padding:14px 18px;border-radius:11px;min-height:49px;font-size:14px;font-weight:750;display:inline-flex;justify-content:center;align-items:center;text-align:center;text-decoration:none}.secondary,button.small{background:white;border:1px solid #bccadc;color:var(--ink);border-radius:10px;padding:12px 15px;min-height:46px;font-size:13px;font-weight:700}.small{font-size:12px!important;padding:9px 12px!important;min-height:39px!important}.danger{color:var(--red)!important;border-color:#e6cbd0!important;background:#fffafa!important}.button-row,.row-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.row-actions{padding-top:14px;margin-bottom:0}.page-next{display:flex;justify-content:flex-end;gap:10px;margin:24px 0 8px}.page-next.two>*{flex:1}.page-next>button{min-height:53px}.fold{border-bottom:1px solid var(--line)}.fold:last-child{border-bottom:0}.fold summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:9px;min-height:58px;padding:15px 0;font-size:14px;font-weight:750;position:relative;padding-right:22px}.fold summary::-webkit-details-marker{display:none}.fold summary:after{content:"+";position:absolute;right:0;top:50%;transform:translateY(-50%);font-weight:500;font-size:21px;color:var(--muted)}.fold[open]>summary:after{content:"−"}.fold-body{padding:6px 0 20px}.fold-body .fold summary{font-size:13px}.fold-body>.fold{border-top:1px solid var(--line);margin-top:15px}.number{display:inline-grid;place-items:center;min-width:28px;height:28px;background:#e9eff9;border-radius:8px;font-size:12px;color:var(--blue)}.machine-badge{margin-left:auto;max-width:92px;text-align:right;font-size:11px;line-height:1.4;color:var(--blue);font-weight:800}.count{margin-left:auto;background:#eaf0f7;border-radius:7px;font-size:11px;padding:4px 7px;color:var(--muted)}.record{padding:5px 0 20px;border-top:1px solid var(--line)}.calculated{color:var(--blue);font-size:12px;font-weight:650;line-height:1.5;margin-top:11px}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:#f1f5fa;border-radius:12px;padding:17px 8px;margin:17px 0}.metrics>div{text-align:center;border-right:1px solid #dbe4ef}.metrics>div:last-child{border:0}.metrics strong{display:block;font-size:25px;letter-spacing:-.6px}.metrics span{display:block;font-size:10px;color:var(--muted);margin-top:4px}.empty{text-align:center;padding:32px 24px}.empty p{font-size:13px;color:var(--muted);line-height:1.6}.empty-mark{margin:auto;background:#eaf0f8;width:50px;height:50px;display:grid;place-items:center;border-radius:15px;font-size:29px;color:var(--blue)}.log-card{padding:2px 20px;scroll-margin-top:83px}.log-summary{min-width:0;display:flex;flex-direction:column;gap:5px}.log-summary strong{font-size:14px;line-height:1.4;overflow-wrap:anywhere}.log-summary>span{font-size:11px;color:var(--muted);font-weight:500}.activity-tools{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-bottom:16px}.time-value{font-size:11px;font-weight:650;color:var(--blue);margin-left:auto;line-height:1.4}.setup-mark{display:inline-grid;place-items:center;border:2px solid #1d704c;color:#1d704c;border-radius:12px;font-size:11px;font-weight:850;width:49px;height:55px;letter-spacing:1px;margin-bottom:15px}.setup-file{font-family:ui-monospace,monospace;overflow-wrap:anywhere;font-size:12px;background:#edf2f8;padding:12px;border-radius:8px;margin:14px 0}.setup-primary{width:100%;margin:7px 0 15px}.privacy{font-size:11px;line-height:1.6;color:var(--muted)}.footer{max-width:796px;margin:auto;padding:2px 22px 22px;font-size:10px;line-height:1.6;color:var(--muted);text-align:center}.warning{background:#fff0ef;border:1px solid #efc7c6;padding:14px;margin:0 16px 14px;border-radius:10px;font-size:12px;color:var(--red)}
+dialog{border:0;border-radius:19px;padding:0;max-width:600px;width:calc(100% - 26px);max-height:90dvh;box-shadow:0 18px 70px #0004;color:var(--ink);background:white}dialog::backdrop{background:#09182db8;backdrop-filter:blur(3px)}.dialog-head{padding:19px 21px;display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--line)}.dialog-head h2{font-size:20px;margin:0}.close{font-size:23px;border:0;background:#edf2f7;border-radius:10px;width:40px;height:40px;color:var(--ink)}.dialog-body{padding:20px 21px 25px}.dialog-body p{font-size:13px;line-height:1.6}.dialog-body ul{font-size:12px;line-height:1.65;padding-left:20px;max-height:160px;overflow:auto;margin:12px 0 20px}.wide{width:100%}.ready{background:#eef8f3;border:1px solid #c6e5d5;border-radius:12px;padding:16px;margin-top:18px}.ready h3{margin:0 0 10px}.filename{font:11px ui-monospace,monospace;overflow-wrap:anywhere;color:#2b624b;margin:10px 0}.ready .button-row>*{flex:1}.ready a.button{background:#fff;color:var(--ink);border:1px solid #b5cec0}.rule{border:0;border-top:1px solid var(--line);margin:22px 0}.tools-stack{display:grid;gap:10px}.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(22px + env(safe-area-inset-bottom));z-index:50;background:#142238;color:white;box-shadow:0 9px 35px #0004;border-radius:12px;padding:14px 18px;width:max-content;max-width:calc(100% - 32px);font-size:13px;line-height:1.5}.toast.bad{background:#862f3a;color:white}
+@media(min-width:660px){.masthead{padding-top:27px;padding-bottom:25px}.masthead h1{font-size:35px}.grid{gap:19px 18px}.card{padding:26px}.card.compact,.log-card{padding:4px 25px}.step{font-size:14px}.nav-export{font-size:14px;padding:12px 18px}.step-label{font-size:11px}}
+@media(max-width:359px){main{padding-left:10px;padding-right:10px}.card{padding:17px}.card.compact,.log-card{padding:3px 16px}.step{font-size:11px;padding:8px 3px}.step b{width:19px;height:21px;margin-right:3px}.nav-export{padding:9px 8px}.grid{gap:15px 8px}.field label{font-size:11px}}
+@media print{body:before{content:"Export the .xlsm workbook to use the original report layout. This phone-entry screen is not the submitted DSR.";display:block;padding:20px}.masthead,.sticky-nav,main,.footer,.statusbar{display:none}}
+</style>
+</head>
+<body>
+<header class="masthead"><div class="masthead-inner"><div class="topline"><span class="eyebrow">TRACK MACHINES</span><button type="button" class="menu-btn" data-action="tools">Tools</button></div><h1>DAILY SITE REPORT</h1><p>PHONE ENTRY &nbsp;/&nbsp; ORIGINAL EXCEL EXPORT</p><div id="current-report" class="report-chip">Detail → Equipment → Live log</div></div></header>
+<div class="statusbar"><span id="save-state">Saved on this phone</span><span id="template-state">One-time setup needed</span></div>
+<div id="storage-warning" class="warning" hidden>Browser storage is unavailable. Keep this page open and export or back up your draft before leaving. Private browsing and clearing website data can remove saved work.</div>
+<main id="setup"><section class="card"><div class="setup-mark">XLSM</div><h2>Choose your original template</h2><p class="setup-copy">A one-time setup on this phone. The app reads your workbook’s dropdowns and keeps the original file for exports.</p><div class="setup-file">Track Machine DSR Template v17_26.xlsm</div><button type="button" class="primary setup-primary" data-action="choose-template">Choose original .xlsm template</button><p class="privacy"><strong>Your workbook is not uploaded.</strong> Its macros, crew names, SAP numbers and your report entries stay in this browser until you choose to share or save a file. Do not put the original workbook on a public website.</p><div class="note">Use the blank template, not a completed DSR. Save the .xlsm in the iPhone Files app first, then choose it here.</div></section><section class="card"><h3>Your shift, in order</h3><p class="setup-copy"><strong>1. Detail</strong> — shift, crew, machines and jobs.<br><strong>2. Equipment</strong> — starting and finishing readings.<br><strong>3. Log</strong> — add activities during the shift.<br><strong>Export</strong> — the original macro-enabled Excel workbook.</p></section></main>
+<div id="workspace" hidden><nav class="sticky-nav" aria-label="Report steps"><div class="nav-inner"><button class="step" type="button" data-step="detail"><b>1</b>Detail</button><button class="step" type="button" data-step="equipment"><b>2</b>Equipment</button><button class="step" type="button" data-step="log"><b>3</b>Log</button><button class="nav-export" type="button" data-action="export">Export ↗</button></div></nav><main id="content"></main></div>
+<footer class="footer">DSR Mobile v1.0 · Local draft, no cloud sync.<br><span id="offline-status">Entry and export work without a connection while this page stays open.</span></footer>
+<input type="file" id="template-file" accept=".xlsm,application/vnd.ms-excel.sheet.macroEnabled.12" hidden>
+<input type="file" id="draft-file" accept=".json,application/json" hidden>
+<dialog id="export-dialog"><div class="dialog-head"><h2>Export original Excel</h2><button class="close" type="button" aria-label="Close export" data-action="close-export">×</button></div><div class="dialog-body"><p>Your entries go into the original <strong>.xlsm workbook</strong>, with its macro project and Excel controls retained. This is not a PDF or CSV.</p><div id="review-notes"></div><button class="primary wide" type="button" data-action="prepare" id="prepare-btn">Prepare .xlsm workbook</button><div class="ready" id="ready" hidden><h3>Workbook ready</h3><div class="filename" id="export-filename"></div><p id="share-note"></p><div class="button-row"><button class="primary" type="button" id="share-btn" data-action="share">Share Excel file</button><a id="save-xlsm" class="button primary" href="#" download>Save Excel file</a></div></div><div class="note">Open the file in desktop Excel at work, let formulas recalculate, check the details and run your normal Quality Check / Submit process. This phone app does not run the VBA macros. Your workplace’s macro-security rules still apply.</div><p class="privacy">Incomplete fields can be exported for you to finish on the computer. Basic phone checks are not the workbook’s macro-driven Quality Check.</p></div></dialog>
+<dialog id="tools-dialog"><div class="dialog-head"><h2>Report tools</h2><button class="close" type="button" aria-label="Close tools" data-action="close-tools">×</button></div><div class="dialog-body"><div class="tools-stack"><button type="button" class="secondary" data-action="backup">Save draft backup (.json)</button><button type="button" class="secondary" data-action="restore">Restore draft backup</button><button type="button" class="secondary" data-action="choose-template">Choose original .xlsm template</button></div><p class="privacy">The draft backup contains the phone entries, not the workbook or macros. Keep the original template separately. Use the same browser or Home Screen app consistently: local storage is not a shared cloud account.</p><hr class="rule"><button type="button" class="secondary wide" data-action="new-shift">Start a new DSR</button><p class="privacy">Export or back up first. New DSR keeps department, crew and machine selections, but clears shift records, readings and attendance.</p><hr class="rule"><p class="privacy"><strong>Keep a copy outside the browser.</strong> Website data can be cleared or removed. Drafts and templates stored here are not encrypted by this app. Use a secured device and only handle work information where your employer permits it.</p></div></dialog>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<noscript>This app needs JavaScript. Open the hosted page in Safari rather than the iPhone Files preview.</noscript>
+<script>
+'use strict';
+/* DSR workbook bridge. No template bytes, employee records or network dependencies
+   are embedded in this app. The selected original XLSM stays in this browser.
+   ZIP entries not explicitly patched are copied with their compressed bytes intact. */
+const NS='http://schemas.openxmlformats.org/spreadsheetml/2006/main';
+const XMLNS='http://www.w3.org/XML/1998/namespace';
+const RELNS='http://schemas.openxmlformats.org/officeDocument/2006/relationships';
+const MIME='application/vnd.ms-excel.sheet.macroEnabled.12';
+const enc=new TextEncoder(), dec=new TextDecoder();
+const xp=s=>{const d=new DOMParser().parseFromString(s,'application/xml');if(d.getElementsByTagName('parsererror').length)throw Error('A workbook XML part could not be read.');return d;};
+const xs=d=>new XMLSerializer().serializeToString(d);
+const els=(d,n)=>Array.from(d.getElementsByTagNameNS(NS,n));
+const first=(d,n)=>els(d,n)[0];
+const el=(d,n)=>d.createElementNS(NS,n);
+const crcTable=(()=>{const t=new Uint32Array(256);for(let i=0;i<256;i++){let c=i;for(let j=0;j<8;j++)c=c&1?0xedb88320^(c>>>1):c>>>1;t[i]=c>>>0;}return t;})();
+function crc32(a){let c=0xffffffff;for(const b of a)c=crcTable[(c^b)&255]^(c>>>8);return(c^0xffffffff)>>>0;}
+class NativeZip{
+ constructor(bytes){
+  this.bytes=bytes instanceof Uint8Array?bytes:new Uint8Array(bytes);this.dv=new DataView(this.bytes.buffer,this.bytes.byteOffset,this.bytes.byteLength);this.entries=[];this.byName=new Map();this.patches=new Map();this.removed=new Set();
+  const d=this.dv;let e=-1;for(let i=this.bytes.length-22;i>=Math.max(0,this.bytes.length-65557);i--)if(d.getUint32(i,true)===0x06054b50&&i+22+d.getUint16(i+20,true)===this.bytes.length){e=i;break;}
+  if(e<0)throw Error('Choose the original .xlsm workbook, not a PDF, shortcut or encrypted file.');
+  if(d.getUint16(e+4,true)||d.getUint16(e+6,true))throw Error('Multi-part ZIP workbooks are not supported.');
+  const count=d.getUint16(e+10,true),cd=d.getUint32(e+16,true);if(count===65535||cd===0xffffffff)throw Error('This workbook is too large for the phone exporter.');
+  this.comment=this.bytes.slice(e+22);let p=cd;
+  for(let i=0;i<count;i++){
+   if(d.getUint32(p,true)!==0x02014b50)throw Error('Invalid workbook package.');
+   const nl=d.getUint16(p+28,true),xl=d.getUint16(p+30,true),cl=d.getUint16(p+32,true),len=46+nl+xl+cl;
+   const name=dec.decode(this.bytes.subarray(p+46,p+46+nl)),offset=d.getUint32(p+42,true),size=d.getUint32(p+20,true),uncompressed=d.getUint32(p+24,true),flags=d.getUint16(p+8,true),method=d.getUint16(p+10,true);
+   if(flags&1)throw Error('Encrypted workbooks are not supported.');if(uncompressed>32*1024*1024)throw Error('A workbook component is too large.');
+   if(d.getUint32(offset,true)!==0x04034b50)throw Error('Invalid workbook entry.');
+   const start=offset+30+d.getUint16(offset+26,true)+d.getUint16(offset+28,true);
+   if(start+size>cd)throw Error('Corrupt workbook package.');
+   const entry={name,offset,start,size,uncompressed,flags,method,crc:d.getUint32(p+16,true),central:this.bytes.slice(p,p+len)};
+   this.entries.push(entry);this.byName.set(name,entry);p+=len;
+  }
+  const ordered=[...this.entries].sort((a,b)=>a.offset-b.offset);ordered.forEach((x,i)=>x.end=ordered[i+1]?.offset??cd);
+ }
+ async read(name){
+  if(this.patches.has(name))return this.patches.get(name);const e=this.byName.get(name);if(!e)throw Error('Missing workbook part: '+name);
+  let b=this.bytes.subarray(e.start,e.start+e.size),out;
+  if(e.method===0)out=b;else if(e.method===8){let stream;try{stream=new DecompressionStream('deflate-raw');}catch{throw Error('Open this page in an up-to-date Safari browser. This browser cannot read the workbook.');}out=new Uint8Array(await new Response(new Blob([b]).stream().pipeThrough(stream)).arrayBuffer());}
+  else throw Error('Unsupported ZIP compression in workbook.');
+  if(out.length!==e.uncompressed||crc32(out)!==e.crc)throw Error('Workbook integrity check failed: '+name);return out;
+ }
+ async text(name){return dec.decode(await this.read(name));}
+ set(name,data){if(!this.byName.has(name))throw Error('Cannot replace missing workbook part: '+name);this.patches.set(name,typeof data==='string'?enc.encode(data):data);}
+ remove(name){this.removed.add(name);}
+ build(){
+  const chunks=[],centrals=[];let offset=0,count=0;
+  for(const e of this.entries){if(this.removed.has(e.name))continue;let segment;const central=e.central.slice(),c=new DataView(central.buffer);
+   if(this.patches.has(e.name)){
+    const data=this.patches.get(e.name),header=this.bytes.slice(e.offset,e.start),h=new DataView(header.buffer),crc=crc32(data),flags=e.flags&~8;
+    h.setUint16(6,flags,true);h.setUint16(8,0,true);h.setUint32(14,crc,true);h.setUint32(18,data.length,true);h.setUint32(22,data.length,true);
+    c.setUint16(8,flags,true);c.setUint16(10,0,true);c.setUint32(16,crc,true);c.setUint32(20,data.length,true);c.setUint32(24,data.length,true);
+    segment=[header,data];
+   }else segment=[this.bytes.subarray(e.offset,e.end)];
+   c.setUint32(42,offset,true);for(const part of segment){chunks.push(part);offset+=part.length;}centrals.push(central);count++;
+  }
+  const cdOffset=offset,cdSize=centrals.reduce((n,c)=>n+c.length,0);if(offset+cdSize>0xffffffff||count>=65535)throw Error('Export exceeds ZIP limits.');
+  const end=new Uint8Array(22+this.comment.length),d=new DataView(end.buffer);d.setUint32(0,0x06054b50,true);d.setUint16(8,count,true);d.setUint16(10,count,true);d.setUint32(12,cdSize,true);d.setUint32(16,cdOffset,true);d.setUint16(20,this.comment.length,true);end.set(this.comment,22);
+  return new Blob([...chunks,...centrals,end],{type:MIME});
+ }
+}
+function colNum(col){return [...col.replaceAll('$','')].reduce((n,c)=>n*26+c.charCodeAt(0)-64,0);}
+function colName(n){let s='';while(n){n--;s=String.fromCharCode(65+n%26)+s;n=Math.floor(n/26);}return s;}
+function addr(a){const m=a.match(/^(\$?[A-Z]+)(\$?)(\d+)$/);if(!m)throw Error('Invalid cell '+a);return {col:m[1].replace('$',''),row:+m[3]};}
+function range(r){const [a,b]=r.split(':');return {a:addr(a),b:addr(b||a)};}
+function rowAt(doc,n){return first(doc,'sheetData').children.length?Array.from(first(doc,'sheetData').children).find(r=>+r.getAttribute('r')===n):null;}
+function cellAt(doc,ref,create=false){
+ let row=rowAt(doc,addr(ref).row);if(!row&&create){row=el(doc,'row');row.setAttribute('r',addr(ref).row);const sd=first(doc,'sheetData'),next=Array.from(sd.children).find(r=>+r.getAttribute('r')>addr(ref).row);sd.insertBefore(row,next||null);}
+ let cell=row?Array.from(row.children).find(c=>c.getAttribute('r')===ref):null;
+ if(!cell&&create){cell=el(doc,'c');cell.setAttribute('r',ref);const n=colNum(addr(ref).col),next=Array.from(row.children).find(c=>colNum(addr(c.getAttribute('r')).col)>n);row.insertBefore(cell,next||null);}return cell;
+}
+function valueAt(doc,ref,strings=[]){const c=cellAt(doc,ref);if(!c)return '';const type=c.getAttribute('t'),v=first(c,'v')?.textContent??'';return type==='s'?strings[+v]??'':type==='inlineStr'?els(c,'t').map(t=>t.textContent).join(''):v;}
+function put(doc,ref,value,type='text'){
+ const c=cellAt(doc,ref,true);if(first(c,'f'))throw Error('Refusing to overwrite a formula at '+ref);
+ for(const child of Array.from(c.children))if(['v','is'].includes(child.localName))child.remove();c.removeAttribute('t');
+ if(value===null||value===undefined||value==='')return;
+ if(type==='number'){const n=Number(value);if(!Number.isFinite(n))throw Error('Invalid number at '+ref);const v=el(doc,'v');v.textContent=String(n);c.appendChild(v);}
+ else{const s=String(value).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,'');if(s.length>32767)throw Error('A comment is longer than Excel allows.');c.setAttribute('t','inlineStr');const is=el(doc,'is'),t=el(doc,'t');t.setAttributeNS(XMLNS,'xml:space','preserve');t.textContent=s;is.appendChild(t);c.appendChild(is);}
+}
+function numericID(v){return /^\d{1,15}$/.test(String(v))&&!/^0\d/.test(String(v))?'number':'text';}
+function excelTime(v){if(!v)return null;if(!/^\d{2}:\d{2}(:\d{2})?$/.test(v))throw Error('Invalid time.');const [h,m,s=0]=v.split(':').map(Number);if(h>23||m>59||s>59)throw Error('Invalid time.');return(h*3600+m*60+s)/86400;}
+function excelDate(v){if(!v)return null;const t=Date.parse(v+'T00:00:00Z');if(!Number.isFinite(t))throw Error('Invalid report date.');return(t-Date.UTC(1899,11,30))/86400000;}
+function documentID(d){const machines=['tamper','regulator','ballastTrain','stabiliser'].map(k=>d[k]||'').filter(Boolean);if(!machines.length||['contractor','stream','crew','shift','date'].some(k=>!d[k]))return '';const clean=v=>String(v).replaceAll(' ','_');return ['DSR',d.date.replaceAll('-',''),d.shift.slice(0,1),clean(d.stream),clean(d.contractor),clean(d.crew),...machines].join('-');}
+function duration(a,b){if(!a||!b)return null;return((excelTime(b)-excelTime(a)+1)%1)*24;}
+function shiftRange(s,cut,delta){return s.replace(/(\$?[A-Z]{1,3}\$?)(\d+)/g,(all,c,r)=>c+(+r>=cut?+r+delta:r));}
+/* Translate only formula code, never quoted text or structured-table headings. */
+function mapFormula(formula,fn){
+ let out='',piece='',depth=0,i=0;const flush=()=>{out+=fn(piece);piece='';};
+ while(i<formula.length){const c=formula[i];if(c==='"'){flush();let t=c;i++;while(i<formula.length){t+=formula[i];if(formula[i]==='"'){if(formula[i+1]==='"'){t+='"';i+=2;continue;}i++;break;}i++;}out+=t;continue;}
+  if(c==='['){flush();let t='';depth=0;do{const q=formula[i++];t+=q;if(q==='[')depth++;if(q===']')depth--;}while(i<formula.length&&depth);out+=t;continue;}piece+=c;i++;
+ }flush();return out;
+}
+function translateFormula(f,delta,cut=null,targetSheet=null,currentSheet=null){return mapFormula(f,s=>{
+ s=s.replace(/(^|[^A-Za-z0-9_\.])((?:'[^']+'|[A-Za-z_][\w .]*)!)?(\$?[A-Z]{1,3})(\$?)([1-9]\d*)(?![A-Za-z0-9_])/g,(all,lead,sheet,col,abs,r)=>{
+  const named=sheet?sheet.slice(0,-1).replace(/^'|'$/g,''):currentSheet;
+  if(cut!==null){if(targetSheet!==null&&named!==targetSheet)return all;return lead+(sheet||'')+col+abs+(+r>=cut?+r+delta:r);}
+  return lead+(sheet||'')+col+abs+(abs?r:+r+delta);
+ });
+ if(cut===null)s=s.replace(/(\$?)([1-9]\d*):(\$?)([1-9]\d*)/g,(all,a,r,b,e)=>(a?a+r:+r+delta)+':'+(b?b+e:+e+delta));return s;
+});}
+function cloneRow(doc,source,newNo){const row=source.cloneNode(true),old=+source.getAttribute('r'),delta=newNo-old;row.setAttribute('r',newNo);
+ for(const c of Array.from(row.children)){const oldRef=c.getAttribute('r');c.setAttribute('r',addr(oldRef).col+newNo);const f=first(c,'f');if(f){if(f.getAttribute('t')==='shared')throw Error('Unexpected shared formula in an expandable table.');f.textContent=translateFormula(f.textContent,delta);if(f.hasAttribute('ref'))f.setAttribute('ref',shiftRange(f.getAttribute('ref'),0,delta));const v=first(c,'v');if(v)v.remove();c.removeAttribute('t');}else{for(const v of Array.from(c.children))if(['v','is'].includes(v.localName))v.remove();c.removeAttribute('t');}}
+ return row;
+}
+class WorkbookBridge{
+ static async load(bytes,name){
+  const b=new WorkbookBridge();b.original=bytes instanceof Uint8Array?bytes:new Uint8Array(bytes);b.zip=new NativeZip(b.original);b.fileName=name;
+  if(!b.zip.byName.has('xl/vbaProject.bin'))throw Error('Choose the original macro-enabled .xlsm template.');
+  b.workbook=xp(await b.zip.text('xl/workbook.xml'));const rel=xp(await b.zip.text('xl/_rels/workbook.xml.rels'));b.sheets={};b.tableInfo={};b.strings=[];
+  if(b.zip.byName.has('xl/sharedStrings.xml'))b.strings=els(xp(await b.zip.text('xl/sharedStrings.xml')),'si').map(si=>els(si,'t').map(t=>t.textContent).join(''));
+  const relationships=Array.from(rel.documentElement.children);for(const s of els(b.workbook,'sheet')){const id=s.getAttributeNS(RELNS,'id'),target=relationships.find(r=>r.getAttribute('Id')===id)?.getAttribute('Target');const path=target.startsWith('/')?target.slice(1):'xl/'+target;b.sheets[s.getAttribute('name')]={path,doc:xp(await b.zip.text(path))};}
+  for(const name of ['Detail','Log','Crew','Equipment','Lookup Lists'])if(!b.sheets[name])throw Error('This is not the supported Track Machine DSR template.');
+  for(const e of b.zip.entries.filter(e=>/^xl\/tables\/[^/]+\.xml$/.test(e.name))){const doc=xp(await b.zip.text(e.name)),r=doc.documentElement;b.tableInfo[r.getAttribute('name')]={path:e.name,doc,ref:r.getAttribute('ref')};}
+  const required={tblJobs:'B40:I41',tblTSR:'B45:G46',tblTamperActivity:'B6:AB8',tblShiftCrew:'B17:J19',tblEquipmentPrimary:'B11:J20',tblBreakdowns:'B24:J29'};
+  for(const [t,ref] of Object.entries(required))if(b.tableInfo[t]?.ref!==ref)throw Error('Use the blank Track Machine DSR Template v17_26.xlsm supplied for this app. A completed or differently sized workbook is not a template.');
+  if(valueAt(b.sheets.Log.doc,'B7',b.strings)||valueAt(b.sheets.Log.doc,'E7',b.strings))throw Error('Choose a blank template, not an already completed report.');
+  b.lookups=b.readLookups();return b;
+ }
+ tableRows(name){const t=this.tableInfo[name];if(!t)return[];const r=range(t.ref),doc=this.sheets['Lookup Lists'].doc,rows=[];for(let row=r.a.row+1;row<=r.b.row;row++){let a=[];for(let c=colNum(r.a.col);c<=colNum(r.b.col);c++)a.push(valueAt(doc,colName(c)+row,this.strings));rows.push(a);}return rows;}
+ readLookups(){
+  const one=name=>this.tableRows(name).map(r=>r[0]).filter(v=>v!==''),uniq=a=>[...new Set(a.filter(v=>v!==''))];const crewRows=this.tableRows('tblCurrentCrewMembers');
+  return {contractors:one('tblContractors'),streams:one('tblWorkStream'),crews:uniq(crewRows.map(r=>r[0])),crewRows,supervisors:one('tblSupervisors'),leadingHands:one('tblLeadingHand'),blocks:one('tblBlocks'),shuts:one('tblShutNumbers'),tampers:uniq(this.tableRows('tblEquipmentTamper').map(r=>r[2])),regulators:uniq(this.tableRows('tblEquipmentRegulator').map(r=>r[2])),stabilisers:uniq(this.tableRows('tblEquipmentStabiliser').map(r=>r[2])),ballastTrains:one('tblBallastTrain'),activities:this.tableRows('tblTamperSecondary'),tampTypes:one('tblTampingCodes'),passes:one('tblNumTampPass'),wagons:one('tblBallastWagonsDropped'),tsrActions:one('tblTSRActions'),notification:one('tblNotificationRaised'),status:one('tblNotificationStatus'),workStatus:one('tblWorkStatus'),tracks:uniq(this.tableRows('tblTrackSections').map(r=>r[0])),trackRows:this.tableRows('tblTrackSections'),failureRows:this.tableRows('tblMasterFailureCodes')};
+ }
+ async export(s){
+  const zip=new NativeZip(this.original),docs={},tables={};for(const [name,sheet] of Object.entries(this.sheets))if(name!=='Lookup Lists'&&name!=='Quick Start Guide')docs[name]=xp(xs(sheet.doc));
+  for(const [name,t] of Object.entries(this.tableInfo))if(['tblJobs','tblTSR','tblTamperActivity','tblShiftCrew','tblBreakdowns'].includes(name))tables[name]={...t,doc:xp(xs(t.doc))};
+  const wb=xp(xs(this.workbook)),modifiedTables=new Set(),drawingPatches=new Map();
+  const insertRows=async(sheetName,cut,delta)=>{
+   if(delta<=0)return;const doc=docs[sheetName];
+   for(const row of els(doc,'row'))if(+row.getAttribute('r')>=cut){row.setAttribute('r',+row.getAttribute('r')+delta);for(const c of Array.from(row.children))c.setAttribute('r',shiftRange(c.getAttribute('r'),cut,delta));}
+   for(const node of Array.from(doc.getElementsByTagName('*'))){for(const attr of ['ref','sqref','activeCell','topLeftCell'])if(node.hasAttribute(attr)&&node.localName!=='c')node.setAttribute(attr,shiftRange(node.getAttribute(attr),cut,delta));if(node.localName==='sqref')node.textContent=shiftRange(node.textContent,cut,delta);}
+   for(const [name,d] of Object.entries(docs))for(const f of Array.from(d.getElementsByTagName('*')).filter(e=>['f','formula','formula1','formula2'].includes(e.localName)&&!e.children.length))f.textContent=translateFormula(f.textContent,delta,cut,sheetName,name);
+   for(const f of els(wb,'definedName'))f.textContent=translateFormula(f.textContent,delta,cut,sheetName,null);
+   for(const [name,t] of Object.entries(tables)){
+    const belongs=(sheetName==='Detail'&&['tblJobs','tblTSR'].includes(name))||(sheetName==='Log'&&name==='tblTamperActivity')||(sheetName==='Crew'&&name==='tblShiftCrew')||(sheetName==='Equipment'&&name==='tblBreakdowns');if(!belongs)continue;
+    for(const n of Array.from(t.doc.getElementsByTagName('*')))if(n.hasAttribute('ref'))n.setAttribute('ref',shiftRange(n.getAttribute('ref'),cut,delta));
+    for(const f of els(t.doc,'calculatedColumnFormula'))f.textContent=translateFormula(f.textContent,delta,cut,sheetName,sheetName);modifiedTables.add(name);
+   }
+   // Move anchored shapes only when rows beneath them have actually been inserted.
+   const sheet=this.sheets[sheetName],relPath=sheet.path.replace('/worksheets/','/worksheets/_rels/')+'.rels';
+   if(zip.byName.has(relPath)){const rel=xp(await zip.text(relPath));for(const r of Array.from(rel.documentElement.children))if(r.getAttribute('Type')?.endsWith('/drawing')){
+    const target=r.getAttribute('Target'),path=target.startsWith('/')?target.slice(1):new URL(target,'https://local.invalid/'+sheet.path).pathname.slice(1);const draw=drawingPatches.get(path)||xp(await zip.text(path));let changed=false;
+    for(const n of Array.from(draw.getElementsByTagName('*')).filter(n=>n.localName==='row'))if(+n.textContent>=cut-1){n.textContent=+n.textContent+delta;changed=true;}
+    if(changed)drawingPatches.set(path,draw);
+   }}
+  };
+  const growTable=async(name,sheetName,count)=>{
+   const t=tables[name],root=t.doc.documentElement,r=range(root.getAttribute('ref')),totals=+(root.getAttribute('totalsRowCount')||0),start=r.a.row+1,oldCount=r.b.row-r.a.row-totals,required=Math.max(1,count),extra=Math.max(0,required-oldCount),oldEnd=start+oldCount-1,doc=docs[sheetName],source=rowAt(doc,start).cloneNode(true);
+   if(extra){await insertRows(sheetName,oldEnd+1,extra);const sd=first(doc,'sheetData');for(let i=0;i<extra;i++){const no=oldEnd+1+i,n=cloneRow(doc,source,no),next=Array.from(sd.children).find(x=>+x.getAttribute('r')>no);sd.insertBefore(n,next||null);}root.setAttribute('ref',r.a.col+r.a.row+':'+r.b.col+(r.b.row+extra));
+    const af=first(root,'autoFilter');if(af)af.setAttribute('ref',r.a.col+r.a.row+':'+r.b.col+(r.b.row+extra-totals));
+    // Expand existing validations and formatting that end at the original data row.
+    for(const n of Array.from(doc.getElementsByTagName('*'))){if(!['dataValidation','conditionalFormatting','ignoredError','sqref'].includes(n.localName))continue;const raw=n.localName==='sqref'?n.textContent:n.getAttribute('sqref');if(!raw)continue;
+     const next=raw.split(' ').map(token=>{try{const x=range(token);if(x.a.row>=start&&x.b.row===oldEnd)return x.a.col+x.a.row+':'+x.b.col+(oldEnd+extra);}catch{}return token;}).join(' ');if(n.localName==='sqref')n.textContent=next;else n.setAttribute('sqref',next);
+    }modifiedTables.add(name);
+   }
+   return start;
+  };
+  const details={contractor:'C12',stream:'C13',crew:'C14',supervisor:'C15',leadingHand:'C16',date:'C21',shift:'C22',block:'C23',shutNumber:'C24',mainlineSwitch:'C25',direction:'C26',tamper:'C32',regulator:'C33',stabiliser:'C34',ballastTrain:'C35',stabled:'C36'};
+  for(const [k,ref] of Object.entries(details))put(docs.Detail,ref,k==='date'?excelDate(s.detail[k]):s.detail[k]??'',k==='date'?'number':'text');
+  put(docs.Detail,'B6',documentID(s.detail));
+  const jobStart=await growTable('tblJobs','Detail',s.jobs.length);
+  s.jobs.forEach((j,i)=>{const r=jobStart+i;for(const [k,c] of Object.entries({workOrder:'D',granted:'E',handedBack:'F',track:'G',turnout:'H',trackSection:'I'}))put(docs.Detail,c+r,['granted','handedBack'].includes(k)?excelTime(j[k]):j[k]??'',['granted','handedBack'].includes(k)?'number':k==='workOrder'?numericID(j[k]):'text');});
+  const tsrStart=await growTable('tblTSR','Detail',s.tsrs.length);
+  s.tsrs.forEach((t,i)=>{const r=tsrStart+i;for(const [k,c] of Object.entries({jobId:'B',number:'C',action:'E',speed:'F',comment:'G'}))put(docs.Detail,c+r,t[k]??'',['jobId','speed'].includes(k)?'number':k==='number'?numericID(t[k]):'text');});
+  // The original comments area is an editable DrawingML text box, not a cell.
+  // Write into that same shape so the report does not get duplicate overlaid text.
+  let commentWritten=false;
+  const drawRelPath=this.sheets.Detail.path.replace('/worksheets/','/worksheets/_rels/')+'.rels';
+  if(zip.byName.has(drawRelPath)){
+   const rel=xp(await zip.text(drawRelPath));
+   for(const rr of Array.from(rel.documentElement.children))if(rr.getAttribute('Type')?.endsWith('/drawing')){
+    const target=rr.getAttribute('Target'),path=target.startsWith('/')?target.slice(1):new URL(target,'https://local.invalid/'+this.sheets.Detail.path).pathname.slice(1);
+    const dd=drawingPatches.get(path)||xp(await zip.text(path));
+    const marker=Array.from(dd.getElementsByTagName('*')).find(n=>n.localName==='cNvPr'&&n.getAttribute('name')==='TextBox 2');
+    if(marker){const shape=marker.parentElement.parentElement,body=Array.from(shape.children).find(n=>n.localName==='txBody'),ans='http://schemas.openxmlformats.org/drawingml/2006/main';
+     if(body){for(const p of Array.from(body.children).filter(n=>n.localName==='p'))p.remove();
+      const text=String(s.detail.comments||'').replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,'');
+      for(const line of text.split('\n')){const p=dd.createElementNS(ans,'a:p'),run=dd.createElementNS(ans,'a:r'),props=dd.createElementNS(ans,'a:rPr'),t=dd.createElementNS(ans,'a:t');props.setAttribute('lang','en-AU');props.setAttribute('sz','1000');t.textContent=line;t.setAttributeNS(XMLNS,'xml:space','preserve');run.append(props,t);p.appendChild(run);body.appendChild(p);}
+      drawingPatches.set(path,dd);commentWritten=true;
+     }
+    }
+   }
+  }
+  if(!commentWritten){const merge=els(docs.Detail,'mergeCell').find(n=>n.getAttribute('ref').startsWith('B'));if(merge)put(docs.Detail,merge.getAttribute('ref').split(':')[0],s.detail.comments||'');}
+
+  for(let row=12;row<=20;row++){const e=s.equipment[String(row)]||{};put(docs.Equipment,'G'+row,e.start??'','number');put(docs.Equipment,'H'+row,e.end??'','number');put(docs.Equipment,'J'+row,e.comment??'');}
+  const bStart=await growTable('tblBreakdowns','Equipment',s.breakdowns.length);
+  s.breakdowns.forEach((b,i)=>{for(const [k,c] of Object.entries({asset:'B',raised:'C',pm03:'D',notification:'E',status:'F',comment:'G'}))put(docs.Equipment,c+(bStart+i),b[k]??'',['pm03','notification'].includes(k)?numericID(b[k]):'text');});
+  const crewStart=await growTable('tblShiftCrew','Crew',s.crew.length);
+  s.crew.forEach((c,i)=>{for(const [k,col] of Object.entries({name:'B',status:'C',sap:'D',start:'E',finish:'F',comment:'I'}))put(docs.Crew,col+(crewStart+i),['start','finish'].includes(k)?excelTime(c[k]):c[k]??'',['start','finish'].includes(k)?'number':k==='sap'?numericID(c[k]):'text');});
+  const logStart=await growTable('tblTamperActivity','Log',s.logs.length);
+  const logCols={start:'B',finish:'C',primary:'E',secondary:'F',comment:'G',jobId:'H',pass:'I',wagons:'J',startKm:'K',endKm:'L',complete:'N',failure:'O',failureComment:'P',tampType:'Q',pressure:'R',squeezeTime:'S',preLine:'T',preLevel:'U',postLine:'V',postLevel:'W',slewLeft:'Z',slewRight:'AA',lift:'AB'};
+  const logNums=new Set(['jobId','pass','wagons','startKm','endKm','pressure','squeezeTime','preLine','preLevel','postLine','postLevel','slewLeft','slewRight','lift']);
+  s.logs.forEach((l,i)=>{for(const [k,col] of Object.entries(logCols))put(docs.Log,col+(logStart+i),['start','finish'].includes(k)?excelTime(l[k]):l[k]??'',['start','finish'].includes(k)||logNums.has(k)?'number':'text');});
+  // Original calculation formulas remain formulas; Excel recalculates on opening.
+  // Remove obsolete cached answers so no template-era values masquerade as current data.
+  for(const doc of Object.values(docs))for(const c of els(doc,'c'))if(first(c,'f')){first(c,'v')?.remove();if(['s','str','e'].includes(c.getAttribute('t')))c.removeAttribute('t');}
+  let calc=first(wb,'calcPr');if(!calc){calc=el(wb,'calcPr');const next=Array.from(wb.documentElement.children).find(n=>['oleSize','customWorkbookViews','pivotCaches','smartTagPr','smartTagTypes','webPublishing','fileRecoveryPr','webPublishObjects','extLst'].includes(n.localName));wb.documentElement.insertBefore(calc,next||null);}calc.setAttribute('calcMode','auto');calc.setAttribute('fullCalcOnLoad','1');calc.setAttribute('forceFullCalc','1');
+  if(zip.byName.has('xl/calcChain.xml')){zip.remove('xl/calcChain.xml');const r=xp(await zip.text('xl/_rels/workbook.xml.rels'));for(const n of Array.from(r.documentElement.children))if(n.getAttribute('Type')?.endsWith('/calcChain'))n.remove();zip.set('xl/_rels/workbook.xml.rels',xs(r));const ct=xp(await zip.text('[Content_Types].xml'));for(const n of Array.from(ct.documentElement.children))if(n.getAttribute('PartName')==='/xl/calcChain.xml')n.remove();zip.set('[Content_Types].xml',xs(ct));}
+  zip.set('xl/workbook.xml',xs(wb));for(const [name,doc] of Object.entries(docs))zip.set(this.sheets[name].path,xs(doc));for(const name of modifiedTables)zip.set(tables[name].path,xs(tables[name].doc));for(const [path,doc] of drawingPatches)zip.set(path,xs(doc));
+  const blob=zip.build();return {blob,patched:[...zip.patches.keys()],removed:[...zip.removed],macroCRC:this.zip.byName.get('xl/vbaProject.bin').crc};
+ }
+}
+
+const VERSION='1.0.0', STORAGE='track_machine_dsr_v1', DBNAME='track_machine_dsr_private_v1';
+const $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uniq=a=>[...new Set(a.filter(v=>v!==''&&v!==null&&v!==undefined).map(String))];
+const today=()=>{const d=new Date();return[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');};
+const now=()=>{const d=new Date();return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');};
+function blankState(){return{schema:1,detail:{contractor:'RNM',date:today(),shift:'',comments:''},jobs:[{}],tsrs:[],equipment:{},breakdowns:[],crew:[],logs:[],step:'detail',updatedAt:null};}
+let state=blankState(),bridge=null,db=null,storageOK=true,templateStored=false,readyFile=null,exportURL=null,lastSaved='',customPaths=new Set(),openPanels=new Map(),toastTimer;
+try{const saved=localStorage.getItem(STORAGE);if(saved){const parsed=JSON.parse(saved);if(parsed.schema===1)state={...blankState(),...parsed};}}catch{storageOK=false;}
+function get(path){return path.split('.').reduce((a,k)=>a?.[k],state)??'';}
+function set(path,value){const bits=path.split('.');let x=state;for(const k of bits.slice(0,-1)){if(!x[k])x[k]={};x=x[k];}x[bits.at(-1)]=value;}
+function persist(invalidate=true){state.updatedAt=new Date().toISOString();try{localStorage.setItem(STORAGE,JSON.stringify(state));storageOK=true;lastSaved=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});}catch{storageOK=false;}if(invalidate)invalidateExport();updateStatus();}
+function invalidateExport(){readyFile=null;if(exportURL){URL.revokeObjectURL(exportURL);exportURL=null;}const box=$('#ready');if(box)box.hidden=true;}
+function updateStatus(){const node=$('#save-state');if(node){node.textContent=storageOK?'Saved on this phone'+(lastSaved?' · '+lastSaved:''):'Not saved — browser storage unavailable';node.classList.toggle('bad',!storageOK);}const warning=$('#storage-warning');if(warning)warning.hidden=storageOK;const t=$('#template-state');if(t)t.textContent=bridge?(templateStored?'Template saved on this phone':'Template loaded for this session'):'One-time setup needed';}
+function toast(message,error=false){const n=$('#toast');n.textContent=message;n.classList.toggle('bad',error);n.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>n.hidden=true,error?8000:4000);}
+function captureOpen(){document.querySelectorAll('details[data-panel]').forEach(e=>openPanels.set(e.dataset.panel,e.open));}
+function panel(key,title,body,initial=false){return`<details class="fold" data-panel="${key}" ${(openPanels.has(key)?openPanels.get(key):initial)?'open':''}><summary>${title}</summary><div class="fold-body">${body}</div></details>`;}
+function field(path,label,type='text',opts=null,extra={}){
+ const value=String(get(path)),id=path.replaceAll('.','-'),full=extra.full?' full':'',attr=`id="${esc(id)}" data-path="${esc(path)}"`;
+ const lbl=`<label for="${esc(id)}">${esc(label)}${extra.required?'<span class="req"> *</span>':''}</label>`;let input='';
+ if(type==='select'){
+  const values=uniq(opts||[]),isCustom=customPaths.has(path)||(value&&!values.includes(value)&&extra.custom),selected=isCustom?'__custom__':value;
+  input=`<select ${attr}${extra.custom?' data-allow-custom="1"':''}><option value="">Select…</option>${values.map(v=>`<option value="${esc(v)}"${selected===v?' selected':''}>${esc(v)}</option>`).join('')}${extra.custom?`<option value="__custom__"${isCustom?' selected':''}>Other — type it</option>`:''}</select>${isCustom?`<input aria-label="${esc(label)} — custom value" data-path="${esc(path)}" data-custom="1" value="${esc(value)}" placeholder="Type the value" autocomplete="off">`:''}`;
+ }else if(type==='textarea')input=`<textarea ${attr} rows="3" maxlength="32767" placeholder="${esc(extra.placeholder||'')}">${esc(value)}</textarea>`;
+ else{const inputType=type==='number'?'text':type;input=`<input ${attr} type="${inputType}" value="${esc(value)}"${type==='number'?' inputmode="decimal" data-number="1"':extra.numeric?' inputmode="numeric"':''}${type==='time'?' step="60"':''} placeholder="${esc(extra.placeholder||'')}" autocomplete="off">`;}
+ return`<div class="field${full}">${lbl}${input}${extra.hint?`<small>${esc(extra.hint)}</small>`:''}</div>`;
+}
+const grid=html=>`<div class="grid">${html}</div>`;
+const button=(action,text,cls='secondary',data='')=>`<button type="button" class="${cls}" data-action="${action}" ${data}>${text}</button>`;
+function lists(){return bridge?.lookups||{};}
+function jobOptions(){return state.jobs.map((_,i)=>String(i+1));}
+function assetOptions(){return uniq(['tamper','regulator','stabiliser','ballastTrain'].map(k=>state.detail[k]));}
+function metrics(){let hours=0,open=0;state.logs.forEach(l=>{if(l.start&&!l.finish)open++;const n=duration(l.start,l.finish);if(n!==null)hours+=n;});return{hours,open};}
+function metricHTML(){const m=metrics();return`<div class="metrics"><div><strong id="metric-count">${state.logs.length}</strong><span>activities</span></div><div><strong id="metric-hours">${m.hours.toFixed(2)}</strong><span>hours logged</span></div><div><strong id="metric-open">${m.open}</strong><span>in progress</span></div></div>`;}
+function updateMetrics(){const m=metrics();if($('#metric-count'))$('#metric-count').textContent=state.logs.length;if($('#metric-hours'))$('#metric-hours').textContent=m.hours.toFixed(2);if($('#metric-open'))$('#metric-open').textContent=m.open;
+ document.querySelectorAll('[data-duration]').forEach(n=>{const l=state.logs[+n.dataset.duration],h=duration(l?.start,l?.finish);n.textContent=h===null?'In progress / times incomplete':h.toFixed(2)+' hours';});
+ document.querySelectorAll('[data-distance]').forEach(n=>{const l=state.logs[+n.dataset.distance];n.textContent=l?.startKm!==undefined&&l?.startKm!==''&&l?.endKm!==undefined&&l?.endKm!==''&&Number.isFinite(+l.startKm)&&Number.isFinite(+l.endKm)?(Math.abs(+l.endKm-+l.startKm)*1000).toLocaleString(undefined,{maximumFractionDigits:1})+' m':'';});
+ document.querySelectorAll('[data-reading]').forEach(n=>{const e=state.equipment[n.dataset.reading]||{};n.textContent=e.start!==undefined&&e.start!==''&&e.end!==undefined&&e.end!==''&&Number.isFinite(+e.start)&&Number.isFinite(+e.end)?'Difference: '+Math.abs(+e.end-+e.start).toLocaleString(undefined,{maximumFractionDigits:2}):'Add the end reading later.';});
+}
+function detailPage(){const l=lists();let html=`<section class="card"><div class="section-head"><span class="step-label">STEP 01</span><h2>Shift detail</h2><p>Set up the report before the shift. Come back to update handback and stabling details later.</p></div>`;
+ html+=grid(field('detail.date','Shift start date','date',null,{required:true})+field('detail.shift','Shift','select',['Day','Night'],{required:true})+field('detail.contractor','Contractor','select',l.contractors,{custom:true,required:true})+field('detail.stream','Stream','select',l.streams,{custom:true,required:true})+field('detail.crew','Crew','select',l.crews,{custom:true,required:true})+field('detail.supervisor','Supervisor','select',l.supervisors,{custom:true,required:true})+field('detail.leadingHand','Leading hand','select',l.leadingHands,{custom:true,required:true})+field('detail.block','Block','select',l.blocks,{custom:true})+field('detail.shutNumber','Shut number','select',l.shuts,{custom:true})+field('detail.mainlineSwitch','Mainline or switch','select',['Mainline','Switch'])+field('detail.direction','Tamper direction','select',['North','South']));
+ html+=`<h3 class="subhead">Machines &amp; end-of-day stabling</h3>`+grid(field('detail.tamper','Tamper','select',l.tampers,{custom:true})+field('detail.regulator','Regulator','select',l.regulators,{custom:true})+field('detail.stabiliser','Stabiliser','select',l.stabilisers,{custom:true})+field('detail.ballastTrain','Ballast train','select',l.ballastTrains,{custom:true})+field('detail.stabled','EOD stabled','text',null,{full:true,placeholder:'Location where the machines are stabled'}));html+='</section>';
+ html+=`<section class="card"><div class="section-row"><h2>Resurfacing jobs</h2>${button('add-job','+ Job','small')}</div><p class="muted">Each job gets an ID. Link your activities to that ID in the Log.</p>`;
+ state.jobs.forEach((j,i)=>{const tr=(l.trackRows||[]).filter(r=>r[0]===j.track),turnouts=uniq(tr.map(r=>r[5])),sections=uniq(tr.filter(r=>r[5]===(j.turnout||'')).map(r=>r[4]));html+=panel('job-'+i,`<span class="number">${i+1}</span> Job ${i+1}${j.workOrder?' · '+esc(j.workOrder):''}`,grid(field(`jobs.${i}.workOrder`,'Work order','text',null,{numeric:true,required:true})+field(`jobs.${i}.track`,'Track','select',l.tracks,{custom:true,required:true})+field(`jobs.${i}.granted`,'Access granted','time')+field(`jobs.${i}.handedBack`,'Handed back','time')+field(`jobs.${i}.turnout`,'Turnout','select',turnouts,{custom:true})+field(`jobs.${i}.trackSection`,'Track section','select',sections,{custom:true,full:true}))+`<div class="row-actions">${button('delete-job','Remove job','danger small',`data-index="${i}"`)}</div>`,i===0);});html+='</section>';
+ let tsr=`<p class="muted">The activity date comes from the shift start date, just as it does in Excel.</p>`;state.tsrs.forEach((t,i)=>{tsr+=`<div class="record"><h3>TSR ${i+1}</h3>`+grid(field(`tsrs.${i}.jobId`,'Job ID','select',jobOptions())+field(`tsrs.${i}.number`,'TSR number','text',null,{numeric:true})+field(`tsrs.${i}.action`,'Action','select',l.tsrActions,{custom:true})+field(`tsrs.${i}.speed`,'Speed','number')+field(`tsrs.${i}.comment`,'Comment','textarea',null,{full:true}))+button('delete-tsr','Remove TSR','danger small',`data-index="${i}"`)+'</div>';});tsr+=button('add-tsr','+ Add TSR');html+=`<section class="card compact">${panel('tsrs','TSRs <span class="count">'+state.tsrs.length+'</span>',tsr)}</section>`;
+ let crew=`<p class="muted">Optional on the phone. Complete it here or tidy it up on the work computer. Loading a crew does not mark anyone as having worked.</p><div class="button-row">${button('load-crew','Load selected crew')}${button('add-person','+ Person')}</div>`;
+ state.crew.forEach((c,i)=>{crew+=panel('person-'+i,`${esc(c.name||'Crew member '+(i+1))}${c.status?' · '+esc(c.status):''}`,grid(field(`crew.${i}.name`,'Crew member','select',(l.crewRows||[]).map(r=>r[1]),{custom:true,full:true})+field(`crew.${i}.sap`,'SAP number','text',null,{numeric:true})+field(`crew.${i}.status`,'Status','select',l.workStatus,{custom:true})+field(`crew.${i}.start`,'Start time','time')+field(`crew.${i}.finish`,'Finish time','time')+field(`crew.${i}.comment`,'Comment','textarea',null,{full:true}))+button('delete-person','Remove person','danger small',`data-index="${i}"`));});html+=`<section class="card compact">${panel('crew','Crew <span class="count">'+state.crew.length+'</span>',crew)}</section>`;
+ html+=`<section class="card"><h2>Shift comments</h2>`+field('detail.comments','Comments for the Detail sheet','textarea',null,{full:true,placeholder:'Handover, constraints, job changes or anything else to record…'})+'</section>';
+ html+=`<div class="page-next">${button('next','Next: Equipment →','primary')}</div>`;return html;
+}
+function equipmentPage(){const d=state.detail,l=lists();const defs=[['12','Tamper · Main engine',d.tamper,'hours'],['13','Tamper · Genset',d.tamper,'hours'],['14','Tamper · Tyne insertions',d.tamper,'insertions'],['15','Stabiliser · Main engine',d.stabiliser,'hours'],['16','Stabiliser · Genset',d.stabiliser,'hours'],['17','Stabiliser unit run hours',['T6','T7','T11'].includes(d.tamper)?'N/A':(['T2','T3'].includes(d.tamper)?d.tamper:d.stabiliser||d.tamper),'hours'],['18','Integrated stabiliser · Main engine',['T2','T3'].includes(d.tamper)?d.tamper:'N/A','hours'],['19','Regulator · Main engine',d.regulator,'hours'],['20','Regulator · Genset',d.regulator,'hours']];
+ let html=`<section class="card"><div class="section-head"><span class="step-label">STEP 02</span><h2>Equipment readings</h2><p>Enter start readings now and end readings later. The Excel formulas still calculate the measured values.</p></div><div class="note">Machine numbers come from Detail. Leave readings blank when an assembly is not fitted or not used.</div></section>`;
+ defs.forEach(([r,title,plate,unit])=>{const data=state.equipment[r]||{};const body=grid(field(`equipment.${r}.start`,'Start · '+unit,'number')+field(`equipment.${r}.end`,'End · '+unit,'number')+field(`equipment.${r}.comment`,'Comment','text',null,{full:true}))+`<div class="calculated" data-reading="${r}"></div>`;html+=`<section class="card compact">${panel('equipment-'+r,`${esc(title)}<span class="machine-badge">${esc(plate||'Not selected')}</span>`,body,!!plate&&plate!=='N/A'&&['12','14','19'].includes(r))}</section>`;});
+ let breakdown=`<p class="muted">Times are linked to the Log activities coded <strong>Breakdown - Operator PM03</strong>, in the same order. Record that activity in Log; enter the notification details here.</p>`;
+ state.breakdowns.forEach((b,i)=>{const log=state.logs.filter(x=>x.secondary==='Breakdown - Operator PM03')[i];breakdown+=panel('breakdown-'+i,`Breakdown ${i+1}${b.asset?' · '+esc(b.asset):''}`,grid(field(`breakdowns.${i}.asset`,'Asset','select',assetOptions(),{custom:true})+field(`breakdowns.${i}.raised`,'Notification raised','select',l.notification)+field(`breakdowns.${i}.pm03`,'PM03 work order','text',null,{numeric:true})+field(`breakdowns.${i}.notification`,'Notification number','text',null,{numeric:true})+field(`breakdowns.${i}.status`,'Status','select',l.status,{custom:true})+field(`breakdowns.${i}.comment`,'Comment','textarea',null,{full:true}))+`<p class="calculated">${log?esc(log.start||'—')+' → '+esc(log.finish||'In progress'):'No matching PM03 Log activity yet.'}</p>`+button('delete-breakdown','Remove breakdown','danger small',`data-index="${i}"`),true);});breakdown+=button('add-breakdown','+ Add breakdown');html+=`<section class="card"><h2>Breakdowns</h2>${breakdown}</section>`;
+ html+=`<div class="page-next two">${button('back','← Detail')}${button('next','Next: Log →','primary')}</div>`;return html;
+}
+function logCard(l,i){const lk=lists(),primaries=uniq((lk.activities||[]).map(r=>r[0])),secondaries=uniq((lk.activities||[]).filter(r=>r[0]===l.primary).map(r=>r[1]));let body=`<div class="activity-tools">${button('start-now','Start now','small',`data-index="${i}"`)}${button('finish-now','Finish now','small',`data-index="${i}"`)}<span class="time-value" data-duration="${i}"></span></div>`;
+ body+=grid(field(`logs.${i}.start`,'Start time','time',null,{required:true})+field(`logs.${i}.finish`,'Finish time','time',null,{required:true})+field(`logs.${i}.primary`,'Primary code','select',primaries,{required:true,full:true})+field(`logs.${i}.secondary`,'Secondary code','select',secondaries,{required:true,full:true})+field(`logs.${i}.jobId`,'Job ID','select',jobOptions(),{required:true})+field(`logs.${i}.pass`,'Pass no. this shift','select',lk.passes,{custom:true})+field(`logs.${i}.startKm`,'Actual start location · km','number',null,{placeholder:'e.g. 123.450'})+field(`logs.${i}.endKm`,'Actual end location · km','number',null,{placeholder:'e.g. 124.650'})+field(`logs.${i}.wagons`,'Ballast wagons dropped','select',lk.wagons,{custom:true})+field(`logs.${i}.complete`,'Work order complete','select',lk.notification)+field(`logs.${i}.comment`,'Activity comment','textarea',null,{full:true,placeholder:'What happened during this activity?'}));
+ body+=`<div class="calculated" data-distance="${i}"></div>`;
+ let quality=grid(field(`logs.${i}.tampType`,'Tamp type','select',lk.tampTypes,{full:true})+field(`logs.${i}.pressure`,'Squeeze pressure','number')+field(`logs.${i}.squeezeTime`,'Squeeze time','number')+field(`logs.${i}.preLine`,'SD pre line','number')+field(`logs.${i}.postLine`,'SD post line','number')+field(`logs.${i}.preLevel`,'SD pre level','number')+field(`logs.${i}.postLevel`,'SD post level','number')+field(`logs.${i}.slewLeft`,'Max slew left · mm','number')+field(`logs.${i}.slewRight`,'Max slew right · mm','number')+field(`logs.${i}.lift`,'Max lift · mm','number'))+`<p class="muted">Line and level improvements remain calculated columns in the workbook.</p>`;
+ body+=panel('quality-'+i,'Tamping &amp; quality readings',quality);
+ const reasons=uniq((lk.failureRows||[]).map(r=>r[3])),comments=uniq((lk.failureRows||[]).filter(r=>r[3]===l.failure).map(r=>r[4]));body+=panel('failure-'+i,'Failure details',grid(field(`logs.${i}.failure`,'Failure code / reason','select',reasons,{full:true})+field(`logs.${i}.failureComment`,'Failure comment','select',comments,{custom:true,full:true})));
+ body+=`<div class="row-actions">${i?button('log-up','↑ Move up','small',`data-index="${i}"`):''}${i<state.logs.length-1?button('log-down','↓ Move down','small',`data-index="${i}"`):''}${button('delete-log','Delete activity','danger small',`data-index="${i}"`)}</div>`;
+ const summary=`<span class="number">${i+1}</span><span class="log-summary"><strong>${esc(l.secondary||l.primary||'New activity')}</strong><span>${esc(l.start||'—')} → ${esc(l.finish||'In progress')}${l.jobId?' · Job '+esc(l.jobId):''}</span></span>`;return`<section class="card log-card">${panel('log-'+i,summary,body,i===state.logs.length-1)}</section>`;
+}
+function logPage(){let html=`<section class="card"><div class="section-head"><span class="step-label">STEP 03</span><h2>Live activity log</h2><p>Add activities as the day goes on. Every edit saves on this phone. Exporting does not clear the log.</p></div>${metricHTML()}<div class="note">Times use your phone’s local clock. Overnight durations are handled automatically. Record only actual times; a blank finish stays unfinished.</div></section>`;
+ if(!state.logs.length)html+=`<section class="card empty"><div class="empty-mark">+</div><h3>Your shift starts here</h3><p>Tap Add activity to record the first part of the shift.</p>${button('add-log','+ Add first activity','primary')}</section>`;
+ state.logs.forEach((l,i)=>html+=logCard(l,i));html+=`<div class="page-next two">${button('add-log','+ Add activity','primary')}${button('export','Export Excel ↗')}</div>`;return html;
+}
+function render(capture=true){if(capture)captureOpen();const content=$('#content');$('#setup').hidden=!!bridge;$('#workspace').hidden=!bridge;if(!bridge){updateStatus();return;}
+ document.querySelectorAll('[data-step]').forEach(b=>{const active=b.dataset.step===state.step;b.classList.toggle('active',active);if(active)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current');});
+ content.innerHTML=state.step==='equipment'?equipmentPage():state.step==='log'?logPage():detailPage();$('#current-report').textContent=[state.detail.date,state.detail.crew,state.detail.tamper].filter(Boolean).join(' · ')||'New report';updateStatus();updateMetrics();
+}
+function go(step){captureOpen();state.step=step;persist();render();window.scrollTo({top:0,behavior:'smooth'});}
+function numericProblems(){const result=[];const test=(v,label)=>{if(v!==undefined&&v!==''&&!Number.isFinite(Number(v)))result.push(label+' is not a number.');};for(const [r,e] of Object.entries(state.equipment)){test(e.start,'Equipment '+r+' start');test(e.end,'Equipment '+r+' end');}state.logs.forEach((l,i)=>['jobId','pass','wagons','startKm','endKm','pressure','squeezeTime','preLine','postLine','preLevel','postLevel','slewLeft','slewRight','lift'].forEach(k=>test(l[k],'Activity '+(i+1)+' '+k)));state.tsrs.forEach((t,i)=>{test(t.speed,'TSR '+(i+1)+' speed');test(t.jobId,'TSR '+(i+1)+' job');});return result;}
+function checkDraft(){const notes=[];for(const [k,label] of Object.entries({date:'shift date',shift:'shift',crew:'crew',supervisor:'supervisor',leadingHand:'leading hand',stream:'stream'}))if(!state.detail[k])notes.push('Detail: '+label+' is blank.');
+ if(!documentID(state.detail))notes.push('The report ID needs a date, shift, stream, contractor, crew and at least one machine.');if(!state.logs.length)notes.push('The Log is empty.');state.logs.forEach((l,i)=>{const missing=['start','finish','primary','secondary','jobId'].filter(k=>!l[k]);if(missing.length)notes.push('Activity '+(i+1)+': '+missing.join(', ')+' incomplete.');if(l.jobId&&(+l.jobId<1||+l.jobId>state.jobs.length))notes.push('Activity '+(i+1)+': job ID does not exist.');if(l.startKm!==undefined&&l.startKm!==''&&(l.endKm===undefined||l.endKm===''))notes.push('Activity '+(i+1)+': end location is blank.');if(l.endKm!==undefined&&l.endKm!==''&&(l.startKm===undefined||l.startKm===''))notes.push('Activity '+(i+1)+': start location is blank.');});
+ state.jobs.forEach((j,i)=>{if(!j.workOrder)notes.push('Job '+(i+1)+': work order is blank.');});if(!state.crew.length)notes.push('Crew attendance is blank — complete it on the work computer.');const pm=state.logs.filter(l=>l.secondary==='Breakdown - Operator PM03').length;if(pm!==state.breakdowns.length)notes.push('PM03 log activities and breakdown records have different counts.');return notes;}
+function openExport(){if(!bridge)return toast('Choose the original template first.',true);persist();const notes=checkDraft();$('#review-notes').innerHTML=notes.length?`<p>You can export this as a draft and finish these on the work computer:</p><ul>${notes.slice(0,30).map(n=>'<li>'+esc(n)+'</li>').join('')}</ul>${notes.length>30?'<p>Plus '+(notes.length-30)+' other incomplete items.</p>':''}`:'<p>The basic phone checks found no missing core fields.</p>';$('#export-dialog').showModal();}
+async function prepareExport(){const invalid=numericProblems();if(invalid.length)return toast(invalid.slice(0,3).join(' '),true);const b=$('#prepare-btn');b.disabled=true;b.textContent='Building original Excel workbook…';try{
+ const result=await bridge.export(state),check=new NativeZip(new Uint8Array(await result.blob.arrayBuffer()));await check.read('xl/vbaProject.bin');if(check.byName.get('xl/vbaProject.bin').crc!==result.macroCRC)throw Error('Macro preservation check failed.');
+ const safe=x=>String(x||'').replace(/[^A-Za-z0-9_-]/g,'-').slice(0,45);const stamp=now().replace(':',''),filename=documentID(state.detail)?documentID(state.detail).replace(/[\\/:*?"<>|]/g,'-')+'.xlsm':['DSR',safe(state.detail.date)||'draft',safe(state.detail.crew)||'crew',safe(state.detail.shift)||'shift',stamp].join('_')+'.xlsm';
+ readyFile=new File([result.blob],filename,{type:MIME});if(exportURL)URL.revokeObjectURL(exportURL);exportURL=URL.createObjectURL(readyFile);$('#save-xlsm').href=exportURL;$('#save-xlsm').download=filename;$('#export-filename').textContent=filename;$('#ready').hidden=false;
+ let canShare=false;try{canShare=!!navigator.canShare?.({files:[readyFile]});}catch{}$('#share-btn').hidden=!canShare;$('#share-note').textContent=canShare?'Tap Share Excel file and choose your email app, or save the workbook to Files.':'Tap Save Excel file, then attach the saved .xlsm in your email app. This browser does not offer direct sharing for this file type.';
+ $('#ready').scrollIntoView({behavior:'smooth',block:'nearest'});toast('Workbook ready. Your draft is still saved.');
+ }catch(e){toast('Export failed: '+e.message,true);}finally{b.disabled=false;b.textContent='Prepare .xlsm workbook';}}
+async function shareFile(){if(!readyFile)return;try{await navigator.share({files:[readyFile],title:readyFile.name});}catch(e){if(e.name!=='AbortError')toast('Sharing was not available. Use Save Excel file instead.',true);}}
+function downloadBlob(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}
+function backupDraft(){downloadBlob(new Blob([JSON.stringify({format:'track-machine-dsr-draft',version:1,state},null,2)],{type:'application/json'}),'DSR_Draft_'+(state.detail.date||'undated')+'.json');}
+async function openDB(){return new Promise((resolve,reject)=>{const r=indexedDB.open(DBNAME,1);r.onupgradeneeded=()=>r.result.createObjectStore('private');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
+async function dbGet(key){return new Promise((resolve,reject)=>{const t=db.transaction('private','readonly'),r=t.objectStore('private').get(key);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
+async function dbPut(key,value){return new Promise((resolve,reject)=>{const t=db.transaction('private','readwrite');t.objectStore('private').put(value,key);t.oncomplete=resolve;t.onerror=()=>reject(t.error);t.onabort=()=>reject(t.error||Error('Local storage write cancelled.'));});}
+async function chooseTemplate(file){if(!file)return;if(file.size>8*1024*1024)return toast('Choose the original template, smaller than 8 MB.',true);const buttons=document.querySelectorAll('[data-action="choose-template"]');buttons.forEach(b=>{b.disabled=true;b.textContent='Reading template…';});try{
+ const bytes=new Uint8Array(await file.arrayBuffer()),candidate=await WorkbookBridge.load(bytes,file.name);bridge=candidate;templateStored=false;
+ try{if(!db)db=await openDB();await dbPut('template',{bytes,name:file.name});templateStored=true;}catch{toast('Template works for this session, but this browser could not store it. Keep the original file in Files.',true);}
+ if(navigator.storage?.persist)navigator.storage.persist().catch(()=>{});persist();render();toast('Template ready. Complete Detail first.');$('#tools-dialog').close();
+ }catch(e){toast(e.message,true);}finally{buttons.forEach(b=>{b.disabled=false;b.textContent='Choose original .xlsm template';});$('#template-file').value='';}}
+function newShift(){if(!confirm('Start a new DSR? Export or back up this shift first. This clears the current activities, jobs, crew attendance and equipment readings.'))return;const old=state.detail;state=blankState();for(const k of ['contractor','stream','crew','supervisor','leadingHand','shift','tamper','regulator','stabiliser','ballastTrain'])if(old[k])state.detail[k]=old[k];openPanels.clear();customPaths.clear();persist();$('#tools-dialog').close();render();window.scrollTo(0,0);}
+function parsePath(path){const a=path.split('.');return{scope:a[0],index:+a[1],key:a.at(-1)};}
+document.addEventListener('input',e=>{const node=e.target,path=node.dataset?.path;if(!path||node.tagName==='SELECT')return;set(path,node.value);persist();updateMetrics();});
+document.addEventListener('change',e=>{
+ const node=e.target,path=node.dataset?.path;if(!path)return;const p=parsePath(path),scroll=window.scrollY;
+ if(node.tagName==='SELECT'&&node.value==='__custom__'){customPaths.add(path);set(path,'');persist();render();const custom=document.querySelector(`[data-path="${path}"][data-custom]`);custom?.focus();return;}
+ set(path,node.value);if(!node.dataset.custom)customPaths.delete(path);
+ if(p.scope==='logs'&&p.key==='primary'){state.logs[p.index].secondary='';}
+ if(p.scope==='logs'&&p.key==='failure')state.logs[p.index].failureComment='';
+ if(p.scope==='jobs'&&p.key==='track'){state.jobs[p.index].turnout='';state.jobs[p.index].trackSection='';}
+ if(p.scope==='jobs'&&p.key==='turnout')state.jobs[p.index].trackSection='';
+ if(p.scope==='crew'&&p.key==='name'){const match=lists().crewRows?.find(r=>r[1]===node.value);if(match)state.crew[p.index].sap=match[2];}
+ persist();if(node.tagName==='SELECT'||node.type==='date'){render();window.scrollTo(0,scroll);}else updateMetrics();
+});
+document.addEventListener('click',async e=>{const node=e.target.closest('[data-action],[data-step]');if(!node)return;if(node.dataset.step){go(node.dataset.step);return;}const a=node.dataset.action,i=+node.dataset.index;
+ if(a==='choose-template')return $('#template-file').click();if(a==='tools')return $('#tools-dialog').showModal();if(a==='close-tools')return $('#tools-dialog').close();if(a==='close-export')return $('#export-dialog').close();if(a==='export')return openExport();if(a==='prepare')return prepareExport();if(a==='share')return shareFile();if(a==='backup')return backupDraft();if(a==='restore')return $('#draft-file').click();if(a==='new-shift')return newShift();if(a==='next')return go(state.step==='detail'?'equipment':'log');if(a==='back')return go(state.step==='equipment'?'detail':'equipment');
+ if(!bridge)return toast('Load the original template first.',true);captureOpen();const scroll=window.scrollY;
+ if(a==='add-job'){if(state.jobs.length>=100)return toast('This version supports up to 100 jobs per report.',true);state.jobs.push({});openPanels.set('job-'+(state.jobs.length-1),true);}
+ if(a==='delete-job'){if(state.jobs.length===1)return toast('Keep at least one job. You can leave it blank for a draft.');const used=state.logs.some(x=>+x.jobId===i+1)||state.tsrs.some(x=>+x.jobId===i+1);if(used)return toast('This job is used by Log or TSR entries. Reassign those entries before removing it.',true);if(!confirm('Remove Job '+(i+1)+'? Later job IDs will be renumbered.'))return;state.jobs.splice(i,1);[...state.logs,...state.tsrs].forEach(x=>{if(+x.jobId>i+1)x.jobId=String(+x.jobId-1);});}
+ if(a==='add-tsr'){state.tsrs.push({jobId:'1'});openPanels.set('tsrs',true);}if(a==='delete-tsr'){if(!confirm('Remove this TSR?'))return;state.tsrs.splice(i,1);}
+ if(a==='add-person'){state.crew.push({});openPanels.set('crew',true);openPanels.set('person-'+(state.crew.length-1),true);}
+ if(a==='delete-person'){if(!confirm('Remove this crew entry?'))return;state.crew.splice(i,1);}
+ if(a==='load-crew'){const members=(lists().crewRows||[]).filter(r=>r[0]===state.detail.crew);if(!members.length)return toast('Select a crew from Detail first.',true);let count=0;members.forEach(r=>{if(!state.crew.some(c=>c.name===r[1])){state.crew.push({name:r[1],sap:r[2],status:'',start:'',finish:''});count++;}});openPanels.set('crew',true);toast(count+' crew members added. Check status and actual times.');}
+ if(a==='add-breakdown'){state.breakdowns.push({});openPanels.set('breakdown-'+(state.breakdowns.length-1),true);}if(a==='delete-breakdown'){if(!confirm('Remove this breakdown record?'))return;state.breakdowns.splice(i,1);}
+ if(a==='add-log'){if(state.logs.length>=500)return toast('This version supports 500 activities per report. Export this report before starting another.',true);state.logs.forEach((_,n)=>openPanels.set('log-'+n,false));const last=state.logs.at(-1);state.logs.push({start:last?.finish||now(),jobId:last?.jobId||'1'});openPanels.set('log-'+(state.logs.length-1),true);}
+ if(a==='delete-log'){if(!confirm('Delete Activity '+(i+1)+'?'))return;state.logs.splice(i,1);}
+ if(a==='start-now')state.logs[i].start=now();if(a==='finish-now')state.logs[i].finish=now();if(a==='log-up'&&i>0)[state.logs[i-1],state.logs[i]]=[state.logs[i],state.logs[i-1]];if(a==='log-down'&&i<state.logs.length-1)[state.logs[i+1],state.logs[i]]=[state.logs[i],state.logs[i+1]];
+ persist();render(false);if(a==='add-log')document.querySelectorAll('.log-card')[state.logs.length-1]?.scrollIntoView({behavior:'smooth',block:'start'});else window.scrollTo(0,scroll);
+});
+$('#template-file').addEventListener('change',e=>chooseTemplate(e.target.files[0]));
+$('#draft-file').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>8*1024*1024)throw Error('Draft is too large.');const x=JSON.parse(await file.text());if(x.format!=='track-machine-dsr-draft'||x.state?.schema!==1||!Array.isArray(x.state.logs)||!Array.isArray(x.state.jobs)||!Array.isArray(x.state.crew)||!Array.isArray(x.state.breakdowns)||!Array.isArray(x.state.tsrs)||!x.state.detail||!x.state.equipment)throw Error('Choose a DSR draft backup made by this app.');if(x.state.logs.length>500||x.state.jobs.length>100)throw Error('The draft exceeds this version’s limits.');if(!confirm('Replace the current phone draft with this backup?'))return;state={...blankState(),...x.state};if(!['detail','equipment','log'].includes(state.step))state.step='detail';openPanels.clear();customPaths.clear();persist();$('#tools-dialog').close();render();toast('Draft restored.');}catch(e){toast('Restore failed: '+e.message,true);}finally{$('#draft-file').value='';}});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')persist(false);});window.addEventListener('pagehide',()=>persist(false));
+window.addEventListener('storage',e=>{if(e.key===STORAGE&&e.newValue&&e.newValue!==JSON.stringify(state))toast('This report changed in another browser tab. Close duplicate DSR tabs to avoid overwriting entries.',true);});
+async function init(){render();try{db=await openDB();const saved=await dbGet('template');if(saved){bridge=await WorkbookBridge.load(saved.bytes,saved.name);templateStored=true;render();}}catch(e){toast('The saved template could not be loaded. Select the original .xlsm again. '+e.message,true);}updateStatus();}
+init();
+
+if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){
+ navigator.serviceWorker.register('./dsr-sw.js',{scope:'./dsr.html'}).then(async reg=>{
+  const ready=()=>{if(navigator.serviceWorker.controller?.scriptURL===new URL('./dsr-sw.js',location.href).href)document.querySelector('#offline-status').textContent='Offline page enabled. Keep draft backups outside the browser.';};ready();navigator.serviceWorker.addEventListener('controllerchange',ready);
+ }).catch(()=>{});
+}
+</script>
+</body>
+</html>
